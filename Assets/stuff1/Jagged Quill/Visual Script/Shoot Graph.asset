@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: Shoot Graph
+  m_EditorClassIdentifier: Unity.VisualScripting.Flow::Unity.VisualScripting.ScriptGraphAsset
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":482.0,"y":-57.0},"zoom":1.0,"elements":[{"coroutine":false,"defaultValues":{"button":{"$content":"Left","$type":"Unity.VisualScripting.MouseButton"},"action":{"$content":"Down","$type":"Unity.VisualScripting.PressState"}},"position":{"x":-431.0,"y":-390.0},"guid":"520e7de1-cb60-4833-a253-b7d8959f0101","$version":"A","$type":"Unity.VisualScripting.OnMouseInput","$id":"9"},{"startOn":true,"defaultValues":{},"position":{"x":-138.0,"y":-322.0},"guid":"06619edd-05ba-40de-9fc1-6303fb37dc35","$version":"A","$type":"Unity.VisualScripting.ToggleFlow","$id":"11"},{"chainable":false,"parameterNames":["stateName"],"member":{"name":"Play","parameterTypes":["System.String"],"targetType":"UnityEngine.Animator","targetTypeName":"UnityEngine.Animator","$version":"A"},"defaultValues":{"target":null,"%stateName":{"$content":"Shotgun_Recoil","$type":"System.String"}},"position":{"x":243.0,"y":-313.0},"guid":"cc0a0c1a-17dc-47a0-9e75-f43332c3c243","$version":"A","$type":"Unity.VisualScripting.InvokeMember","$id":"13"},{"chainable":false,"parameterNames":["stateName"],"member":{"name":"Play","parameterTypes":["System.String"],"targetType":"UnityEngine.Animator","targetTypeName":"UnityEngine.Animator","$version":"A"},"defaultValues":{"target":null,"%stateName":{"$content":"Shotgun_Recoil","$type":"System.String"}},"position":{"x":146.0,"y":-33.0},"guid":"17f53141-e076-4105-bd56-a34f7a2a1afe","$version":"A","$type":"Unity.VisualScripting.InvokeMember","$id":"17"},{"sourceUnit":{"$ref":"9"},"sourceKey":"trigger","destinationUnit":{"$ref":"11"},"destinationKey":"toggle","guid":"d9bce5ac-95c1-4182-a680-afd000cce510","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"11"},"sourceKey":"exitOn","destinationUnit":{"$ref":"13"},"destinationKey":"enter","guid":"96500be4-3f8e-45db-81fb-ab4941d15de0","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"11"},"sourceKey":"turnedOff","destinationUnit":{"$ref":"17"},"destinationKey":"enter","guid":"ff2d2a71-be11-4ca2-add9-5aa058e8ed39","$type":"Unity.VisualScripting.ControlConnection"}],"$version":"A"}}'
+    _objectReferences: []
