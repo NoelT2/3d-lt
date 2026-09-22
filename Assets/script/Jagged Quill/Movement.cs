@@ -107,4 +107,16 @@ public class Movement : MonoBehaviour
         dashDirection.y = Mathf.Clamp(dashDirection.y, -0.2f, 0.5f);
         dashDirection = dashDirection.normalized;
     }
+
+    public bool TryStartDashFromGrapple()
+    {
+        if (isDashing ||
+            Time.time < nextDashTime)
+        {
+            return false;
+        }
+
+        StartDash();
+        return true;
+    }
 }

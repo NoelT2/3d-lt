@@ -38,6 +38,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private int pelletCount = 8;
     [SerializeField] private float spreadIntensity = 0.08f;
 
+    [SerializeField] private GrappleController grappleController;
+
     private bool isLeftWeaponTurn = true;
 
     private bool isFocusing = false;
@@ -47,6 +49,12 @@ public class WeaponController : MonoBehaviour
         if (playerCamera == null && Camera.main != null)
         {
             playerCamera = Camera.main.transform;
+        }
+
+        if (grappleController == null)
+        {
+            grappleController =
+                GetComponentInParent<GrappleController>();
         }
     }
 
@@ -146,8 +154,13 @@ public class WeaponController : MonoBehaviour
                 rb.linearVelocity = targetDirection * bulletSpeed;
 
                 // Mematikan komponen Constant Force agar peluru melesat lurus linear sempurna
-                ConstantForce cf = newBullet.GetComponent<ConstantForce>();
-                if (cf != null) cf.enabled = false; 
+                ConstantForce cf =
+                    newBullet.GetComponent<ConstantForce>();
+                if (cf != null)
+                {
+                    // Linear mode should always disable ConstantForce.
+                    cf.enabled = false;
+                } 
             }
 
             Destroy(newBullet, 2.5f);
@@ -171,8 +184,18 @@ public class WeaponController : MonoBehaviour
             Rigidbody rb = newBullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.linearVelocity = targetDirection * bulletSpeed;
-                // Constant Force dibiarkan aktif agar peluru bercabang unik di air
+                rb.linearVelocity =
+                    targetDirection *
+                    bulletSpeed;
+                ConstantForce cf =
+                    newBullet.GetComponent<ConstantForce>();
+                if (cf != null &&
+                    grappleController != null &&
+                    grappleController.IsGrappling)
+                {
+                    // Disable shotgun momentum while grappled.
+                    cf.enabled = false;
+                }
             }
 
             Destroy(newBullet, 2.5f);
