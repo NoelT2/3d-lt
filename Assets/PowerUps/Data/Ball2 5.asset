@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e9517469ac102478e85497a08cea7a, type: 3}
+  m_Name: Ball2 5
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpData
+  powerUpName: ball2
+  icon: {fileID: 0}
+  description: 
+  type: 0
+  category: 0
+  rarityWeight: 100
+  behaviorPrefab: {fileID: 9140768346064503703, guid: 2fe2f25d46cea1142a755996815db976, type: 3}
