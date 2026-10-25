@@ -47,6 +47,11 @@ public class PlayerDiveController : MonoBehaviour
     [SerializeField] private float maxHeightTraumaMultiplier = 2f;
     [SerializeField] private LayerMask groundCheckMask = ~0;
     [SerializeField] private float groundCheckMaxDistance = 200f;
+    
+    [Header("Impact Crater")]
+    [SerializeField] private bool leaveCrater = true;
+    [Tooltip("Crater strength for the lowest dive. Full height dive = 1.")]
+    [SerializeField, Range(0f, 1f)] private float minCraterIntensity = 0.35f;
 
     private float diveStartHeight;
     private float diveStartTime;
@@ -253,6 +258,7 @@ public class PlayerDiveController : MonoBehaviour
         float scaledDamage = Mathf.Lerp(1f, ImpactSettings.Current.maxImpactDamage * diveDamageScale, heightRatio);
 
         ApplyImpactAOE(point, normal, scaledDamage);
+        LeaveCrater(point, normal, heightRatio);
         GameEvents.RaiseDiveImpact(point, scaledDamage);
 
         Debug.Log($"Dive impact at {point}. Damage: {scaledDamage:F1}");
@@ -300,6 +306,37 @@ public class PlayerDiveController : MonoBehaviour
 
             health.TakeDamage(damage, away, knockback, point);
         }
+    }
+
+    private void LeaveCrater(Vector3 point, Vector3 normal, float heightRatio)
+    {
+        if (!leaveCrater) return;
+
+        Collider surfaceCollider = null;
+        Color surface = Color.gray;
+
+        if (Physics.Raycast(point + normal * 0.5f, -normal, out RaycastHit hit, 1.5f,
+                            groundCheckMask, QueryTriggerInteraction.Ignore)
+            && hit.collider != controller)
+        {
+            // Moving props would leave a crater floating in the air.
+            if (hit.collider.attachedRigidbody != null && !hit.collider.attachedRigidbody.isKinematic)
+                return;
+
+            surfaceCollider = hit.collider;
+            surface = ImpactSurface.GetColor(hit.collider, Color.gray);
+        }
+
+        GameEvents.RaiseEnemyImpact(new ImpactInfo
+        {
+            enemy = null,   // no enemy: only the DiveImpactFX object reacts
+            other = surfaceCollider,
+            point = point,
+            normal = normal,
+            intensity = Mathf.Lerp(minCraterIntensity, 1f, heightRatio),
+            hitEnvironment = true,
+            surfaceColor = surface
+        });
     }
 
     private void SpawnImpactEffect(Vector3 point, Vector3 normal)

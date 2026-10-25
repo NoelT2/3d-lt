@@ -28,14 +28,15 @@ public static class BulletMarks
     private static Material chunkMaterial;
 
     public static void Spawn(Vector3 point, Vector3 normal, Color surface, float size, float markLifetime,
-                             int chunkCount, float chunkSize, float chunkLifetime, float dustSize)
+                             int chunkCount, float chunkSize, float chunkLifetime, float dustSize,
+                             bool leaveMark = true)
     {
-        if (craters == null) BuildCraters(markLifetime);
+        if (leaveMark && craters == null) BuildCraters(markLifetime);
         if (chunks == null && chunkCount > 0) BuildChunks(chunkLifetime);
         if (dust == null && dustSize > 0f) BuildDust();
 
         // ---- Crater: wide dug-up patch + smaller, darker pit (same colour family as the surface) ----
-        if (craters != null)
+        if (leaveMark && craters != null)
         {
             EmitMark(point, normal, size, Shade(surface, 0.6f, 0.8f), markLifetime);
             EmitMark(point, normal, size * 0.55f, Shade(surface, 0.35f, 0.95f), markLifetime);
